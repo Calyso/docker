@@ -1,0 +1,23 @@
+version: "2.0"
+services:
+  piaware:
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
+    tty: true
+    container_name: piaware
+    restart: always
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    ports:
+      - 8080:80
+      - 30003:30003
+      - 30005:30005
+    environment:
+      - TZ="America/New_York"
+      - FEEDER_ID=
+      - RECEIVER_TYPE=rtlsdr
+    tmpfs:
+      - /run:exec,size=64M
+      - /var/log
+networks:
+  dockge_default:
+    external: true
